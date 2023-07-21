@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace CleanArchMvc.Domain.Entities
 {
-    public sealed class Category
+    public sealed class Category : Entity
     {
-        public int Id { get; private set; }
         public string Name { get; private set; }
 
         public Category(string name)
@@ -20,8 +19,13 @@ namespace CleanArchMvc.Domain.Entities
 
         public Category(int id, string name)
         {
-            DomainExceptionValidation.When(id < 0, "Invalid Id value");
+            DomainExceptionValidation.When(id < 0, "Invalid Id value.");
             Id = id;
+            ValidateDomain(name);
+        }
+
+        public void Update(string name)
+        {
             ValidateDomain(name);
         }
 
